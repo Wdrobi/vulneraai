@@ -1,6 +1,8 @@
 <div align="center">
 
-# VulneraAI — AI‑Powered Vulnerability Scanner
+<img src="frontend/assets/logo.svg" alt="VulneraAI Logo" width="120" />
+
+# VulneraAI — AI‑Powered Vulnerability Scanner 🔎🛡️
 
 [![Python](https://img.shields.io/badge/Python-3.8%2B-3776AB.svg?logo=python&logoColor=white)](#)
 [![Flask](https://img.shields.io/badge/Flask-2.2-000000.svg?logo=flask&logoColor=white)](#)
@@ -9,16 +11,26 @@
 
 </div>
 
-A modern security scanner with real‑time port analysis, optional threat‑intel enrichment (Censys, NVD, VirusTotal), AI‑style risk assessment, and downloadable reports. Frontend in HTML/CSS/JS, backend in Python Flask with SQLite storage.
+Modern vulnerability scanning with real‑time port analysis, optional threat‑intel enrichment (Censys, NVD, VirusTotal), risk scoring, and downloadable reports. ✨ Frontend in HTML/CSS/JS; backend in Python Flask with SQLite.
 
 ## 🎯 Features
 
-- **IP/Domain scans:** Quick, Standard, or Comprehensive modes
-- **Threat intel enrichment:** Optional Censys, NVD, VirusTotal lookups
-- **Risk scoring:** Aggregated severity with clear remediation hints
-- **Downloadable reports:** JSON, CSV, or PDF export
-- **Modern UI:** Dark theme, responsive layout, live progress
-- **Auth + sessions:** JWT‑based auth routes and protected APIs
+- **🔍 IP/Domain scans:** Quick, Standard, or Comprehensive modes
+- **🧠 Threat‑intel enrichment:** Optional Censys, NVD, VirusTotal lookups
+- **📈 Risk scoring:** Aggregated severity with clear remediation hints
+- **📥 Reports:** JSON, CSV, or PDF export
+- **🎨 Modern UI:** Dark theme, responsive layout, live progress
+- **🔐 Auth + sessions:** JWT‑based auth routes and protected APIs
+
+## 🧩 At a Glance
+
+```mermaid
+flowchart LR
+  FE[🖥️ Frontend (HTML/CSS/JS)] -->|Fetch| API[🔧 Flask API]
+  API --> DB[(🗄️ SQLite)]
+  API --> TI[🛡️ Threat Intel\nVirusTotal · NVD · Censys]
+  FE --> RPT[📊 Reports]
+```
 
 ## 🧭 Architecture
 
@@ -123,6 +135,22 @@ Tips:
 - `frontend/dashboard.html`: recent scans, stats
 - `frontend/index-scanner.html`: start/monitor scans
 - `frontend/report.html`: view/download reports
+
+## 👤 Authors & Maintainers
+
+- **Maintainer:** [@Wdrobi](https://github.com/Wdrobi)
+- **Institution:** Green University (IDP‑II, 9th Semester)
+- **Project:** VulneraAI — Security Scanning & Risk Assessment
+
+Want to add more author details (name, ID, email)? Update this section and commit.
+
+## 🖼️ Screenshots & Diagrams
+
+- Logo: ![VulneraAI Logo](frontend/assets/logo.svg)
+- Block Diagram: ![Architecture](docs/block_diagram.png)
+- ERD (source): [docs/erd.mmd](docs/erd.mmd)
+
+If you have UI screenshots (home, dashboard, reports), place them under `frontend/assets/` and we’ll reference them here.
 
 ## ⚠️ Security & Privacy
 
