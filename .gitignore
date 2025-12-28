@@ -1,0 +1,30 @@
+node_modules
+.env
+.env.local
+dist
+build
+.DS_Store
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.vscode
+.idea
+.prettierignore
+# Python cache and compiled files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+
+# Virtual environments
+venv/
+.venv/
+
+# OS thumbnails
+Thumbs.db
+
+# Do not commit keys
+backend/*.key
+backend/*.pem

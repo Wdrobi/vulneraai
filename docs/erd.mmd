@@ -1,0 +1,29 @@
+%%{init: {
+  'flowchart': {'htmlLabels': true, 'curve': 'linear', 'useMaxWidth': true},
+  'fontFamily': 'Arial, sans-serif',
+  'fontSize': '30',
+  'theme': 'base',
+  'themeVariables': {
+    'primaryColor': '#00d9ff',
+    'primaryBorderColor': '#0099cc',
+    'primaryTextColor': '#000',
+    'secondaryColor': '#ff006e',
+    'lineColor': '#0099cc',
+    'tertiaryColor': '#0a0e27'
+  }
+}}%%
+flowchart TD
+
+    subgraph Row1[ ]
+    direction LR
+    USER["<b>USER</b><br/>id (PK)<br/>username (Unique)<br/>email (Unique)<br/>password_hash<br/>created_at<br/>last_login<br/>is_active"]
+    SCAN["<b>SCAN</b><br/>id (PK)<br/>user_id (FK)<br/>target (IP/Domain)<br/>scan_type<br/>status<br/>progress (0-100)<br/>risk_score (0-100)<br/>risk_level<br/>vulnerabilities (JSON)<br/>created_at<br/>updated_at<br/>started_at<br/>completed_at"]
+    end
+
+    subgraph Row2[ ]
+    direction LR
+    VULN["<b>VULNERABILITY</b><br/>id (PK)<br/>scan_id (FK)<br/>title<br/>description<br/>severity<br/>port<br/>service<br/>cve<br/>remediation"]
+    end
+
+    USER -- "owns" --> SCAN
+    SCAN -- "contains" --> VULN

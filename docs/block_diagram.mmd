@@ -1,0 +1,72 @@
+graph TB
+    subgraph Frontend["🖥️ Frontend Layer"]
+        Home["Home Page"]
+        Auth["Authentication UI"]
+        Scanner["Scanner Interface"]
+        Dashboard["Dashboard"]
+        Report["Report Viewer"]
+    end
+    
+    subgraph API["🌐 API Layer - REST Endpoints"]
+        AuthAPI["POST /api/auth/login<br/>POST /api/auth/register"]
+        ScanAPI["POST /api/scans<br/>GET /api/scans"]
+        ReportAPI["GET /api/reports<br/>POST /api/reports"]
+    end
+    
+    subgraph Services["⚙️ Services Layer"]
+        AuthService["Auth Service<br/>JWT Tokens<br/>Password Hash"]
+        Scanner_Svc["Scanner Service<br/>Vulnerability Detection<br/>Target Assessment"]
+        RiskAssessor["Risk Assessor<br/>CVSS Scoring<br/>Severity Ranking"]
+        ReportGen["Report Generator<br/>PDF Export<br/>Data Aggregation"]
+        APIInteg["API Integrations<br/>NVD, Censys<br/>VirusTotal Framework"]
+    end
+    
+    subgraph Data["💾 Data Layer"]
+        Database["SQLite Database"]
+        UserModel["User Model<br/>Profiles & Auth"]
+        ScanModel["Scan Model<br/>Results & History"]
+        VulnModel["Vulnerability Model<br/>Findings & Tracking"]
+        Config["Configuration<br/>Settings & Secrets"]
+    end
+    
+    %% Frontend to API connections
+    Home --> AuthAPI
+    Auth --> AuthAPI
+    Scanner --> ScanAPI
+    Dashboard --> ScanAPI
+    Dashboard --> ReportAPI
+    Report --> ReportAPI
+    
+    %% API to Services connections
+    AuthAPI --> AuthService
+    ScanAPI --> Scanner_Svc
+    ScanAPI --> RiskAssessor
+    ReportAPI --> ReportGen
+    
+    %% Services to Services connections
+    Scanner_Svc --> RiskAssessor
+    Scanner_Svc --> APIInteg
+    RiskAssessor --> ReportGen
+    
+    %% Services to Data connections
+    AuthService --> Database
+    Scanner_Svc --> Database
+    RiskAssessor --> Database
+    ReportGen --> Database
+    
+    %% Data model connections
+    Database --> UserModel
+    Database --> ScanModel
+    Database --> VulnModel
+    Database --> Config
+    
+    %% Styling
+    classDef frontend fill:#00d9ff,stroke:#0099cc,stroke-width:2px,color:#000
+    classDef api fill:#ff006e,stroke:#cc0055,stroke-width:2px,color:#fff
+    classDef services fill:#00ff88,stroke:#00cc66,stroke-width:2px,color:#000
+    classDef data fill:#ffaa00,stroke:#ff8800,stroke-width:2px,color:#000
+    
+    class Home,Auth,Scanner,Dashboard,Report frontend
+    class AuthAPI,ScanAPI,ReportAPI api
+    class AuthService,Scanner_Svc,RiskAssessor,ReportGen,APIInteg services
+    class Database,UserModel,ScanModel,VulnModel,Config data

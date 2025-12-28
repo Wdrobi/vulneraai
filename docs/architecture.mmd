@@ -1,0 +1,74 @@
+%%{init: {
+  'flowchart': {'htmlLabels': true, 'curve': 'linear', 'useMaxWidth': true},
+  'fontFamily': 'Arial, sans-serif',
+  'fontSize': '20',
+  'theme': 'base',
+  'themeVariables': {
+    'primaryColor': '#00d9ff',
+    'primaryBorderColor': '#0099cc',
+    'primaryTextColor': '#000',
+    'secondaryColor': '#ff006e',
+    'lineColor': '#0099cc',
+    'tertiaryColor': '#0a0e27'
+  }
+}}%%
+flowchart TD
+    User["👤 USER"]
+    
+    subgraph Frontend["🖥️ FRONTEND LAYER"]
+        Scanner["📱 Scanner UI<br/>IP/Domain Input"]
+        Report["📊 Report UI<br/>Results Display"]
+        Validation["✅ Validation<br/>IP/Domain/Subdomain"]
+    end
+
+    subgraph API["🔌 API ROUTES<br/>Flask app.py"]
+        AuthEP["Auth<br/>Login/Logout"]
+        ScanEP["Scans<br/>Start/Status/Results"]
+        ReportEP["Reports<br/>PDF/JSON/CSV"]
+        RiskEP["Risk<br/>Assessment"]
+    end
+
+    subgraph Services["⚙️ SERVICE LAYER<br/>Business Logic"]
+        ScanSvc["Scanner<br/>scanner.py"]
+        RiskSvc["Risk Assessor<br/>risk_assessor.py"]
+        ReportSvc["Report Generator<br/>ReportLab + svglib"]
+        AuthSvc["Auth Service<br/>auth_service.py"]
+        APISvc["API Integrations<br/>Censys/NVD/VirusTotal"]
+    end
+
+    subgraph Data["💾 DATA LAYER"]
+        Models["Models<br/>Scan & Vulnerability"]
+        SQLite["SQLite Database<br/>vulneraai.db"]
+        Config["Configuration<br/>config.py"]
+    end
+
+    User -->|enters target| Scanner
+    Scanner -->|POST target| ScanEP
+    ScanEP --> ScanSvc
+    ScanSvc --> Models
+    Models --> SQLite
+
+    Report -->|GET results| ScanEP
+    ScanEP -->|JSON results| Report
+
+    Report -->|GET PDF| ReportEP
+    ReportEP --> ReportSvc
+    ReportSvc -->|reads logo.svg| Report
+    ReportSvc -->|PDF stream| Report
+
+    ScanEP --> RiskEP
+    RiskEP --> RiskSvc
+    RiskSvc --> Models
+
+    ScanSvc --> APISvc
+    APISvc -->|Censys/NVD/VirusTotal| ScanSvc
+
+    Scanner --> Validation
+    Validation -->|valid IP/Domain| ScanEP
+
+    User -->|login/logout| AuthEP
+    AuthEP --> AuthSvc
+    AuthSvc --> SQLite
+
+    Config --> API
+    Config --> Models

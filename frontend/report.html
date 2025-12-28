@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VulneraAI - Scan Report</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/report.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <img src="assets/logo.svg" alt="VulneraAI" class="nav-logo-img">
+                <span>VulneraAI - Report</span>
+            </div>
+            <div class="nav-menu">
+                <a href="home.html" class="nav-link">Home</a>
+                <a href="index-scanner.html" class="nav-link">Scanner</a>
+                <a href="dashboard.html" class="nav-link">Reports</a>
+                <a href="dashboard.html" class="nav-link">Dashboard</a>
+                <div class="user-info">
+                    <span id="usernameDisplay"></span>
+                    <button id="logoutBtn" class="btn-logout">Logout</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Report Container -->
+    <div class="report-container">
+        <!-- Toolbar -->
+        <div class="report-toolbar">
+            <div class="toolbar-left">
+                <h1>Scan Report</h1>
+            </div>
+            <div class="toolbar-right">
+                <button id="printBtn" class="btn btn-secondary">
+                    🖨️ Print
+                </button>
+                <button id="downloadPdfBtn" class="btn btn-primary">
+                    📥 Download PDF
+                </button>
+                <a decoration='none' href="dashboard.html" class="btn btn-secondary">← Back</a>
+            </div>
+        </div>
+
+        <!-- Report Content (Printable Area) -->
+        <div id="reportContent" class="report-content">
+            <div id="loadingMessage" class="loading-message">
+                Loading report...
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div id="loadingSpinner" class="loading-spinner">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <div class="footer-logo">
+                    <img src="assets/logo.svg" alt="VulneraAI" class="footer-logo-img">
+                    <h4>VulneraAI</h4>
+                </div>
+                <p>Advanced vulnerability scanning with AI-powered risk assessment</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="home.html">Home</a></li>
+                    <li><a href="index-scanner.html">Scanner</a></li>
+                    <li><a href="dashboard.html">Dashboard</a></li>
+                    <li><a href="dashboard.html">Reports</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Resources</h4>
+                <ul class="footer-links">
+                    <li><a href="auth.html">Sign In</a></li>
+                    <li><a href="auth.html">Create Account</a></li>
+                    <li><a href="index-scanner.html">Start Scanning</a></li>
+                    <li><a href="contact.html">Support</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Legal</h4>
+                <ul class="footer-links">
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="terms.html">Terms of Service</a></li>
+                    <li><a href="security.html">Security</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 VulneraAI. All rights reserved. | Advanced Vulnerability Scanner</p>
+        </div>
+    </footer>
+
+    <script src="js/report.js"></script>
+</body>
+</html>

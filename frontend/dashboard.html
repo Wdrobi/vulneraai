@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VulneraAI - Dashboard</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <img src="assets/logo.svg" alt="VulneraAI" class="nav-logo-img">
+                <span>VulneraAI Dashboard</span>
+            </div>
+            <div class="nav-menu">
+                <a href="home.html" class="nav-link">Home</a>
+                <a href="index-scanner.html" class="nav-link">Scanner</a>
+                <a href="#scans" class="nav-link active" data-section="scans">My Scans</a>
+                <a href="#profile" class="nav-link" data-section="profile">Profile</a>
+                <div class="user-info">
+                    <span id="usernameDisplay"></span>
+                    <button id="logoutBtn" class="btn-logout">Logout</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="dashboard-container">
+        <!-- Sidebar Stats -->
+        <aside class="sidebar">
+            <div class="stats-card">
+                <div class="stat-item">
+                    <div class="stat-value" id="totalScans">0</div>
+                    <div class="stat-label">Total Scans</div>
+                </div>
+            </div>
+
+            <div class="stats-card">
+                <div class="stat-item">
+                    <div class="stat-value" id="avgRiskScore">0</div>
+                    <div class="stat-label">Avg Risk Score</div>
+                </div>
+            </div>
+
+            <div class="stats-card">
+                <div class="stat-item">
+                    <div class="stat-value" id="highVulns">0</div>
+                    <div class="stat-label">High Vulnerabilities</div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Content Area -->
+        <div class="content-area">
+            <!-- Scans Section -->
+            <section id="scans-section" class="section active">
+                <div class="section-header">
+                    <h2>My Scans</h2>
+                    <a href="index-scanner.html" class="btn btn-primary">New Scan</a>
+                </div>
+
+                <!-- Scan History Table -->
+                <div class="scan-table-container">
+                    <table class="scan-table" id="scanTable">
+                        <thead>
+                            <tr>
+                                <th>Target</th>
+                                <th>Status</th>
+                                <th>Risk Score</th>
+                                <th>Vulnerabilities</th>
+                                <th>Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="scanTableBody">
+                            <tr class="loading">
+                                <td colspan="6">Loading scans...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Empty State -->
+                <div id="emptyScanState" class="empty-state hidden">
+                    <div class="empty-icon">📊</div>
+                    <h3>No Scans Yet</h3>
+                    <p>Start your first vulnerability scan to see results here</p>
+                    <a href="index-scanner.html" class="btn btn-primary">Create Your First Scan</a>
+                </div>
+            </section>
+
+            <!-- Profile Section -->
+            <section id="profile-section" class="section">
+                <div class="section-header">
+                    <h2>User Profile</h2>
+                </div>
+
+                <div class="profile-card">
+                    <div class="profile-header">
+                        <div class="profile-avatar">👤</div>
+                        <div class="profile-info">
+                            <h3 id="profileUsername"></h3>
+                            <p id="profileEmail"></p>
+                            <p id="profileCreated"></p>
+                        </div>
+                    </div>
+
+                    <div class="profile-stats">
+                        <div class="stat">
+                            <span class="label">Total Scans</span>
+                            <span class="value" id="profileTotalScans">0</span>
+                        </div>
+                        <div class="stat">
+                            <span class="label">Account Created</span>
+                            <span class="value" id="profileAccountAge">0d</span>
+                        </div>
+                        <div class="stat">
+                            <span class="label">Last Activity</span>
+                            <span class="value" id="profileLastActivity">Just now</span>
+                        </div>
+                    </div>
+
+                    <div class="profile-actions">
+                        <button id="changePasswordBtn" class="btn btn-secondary">Change Password</button>
+                        <button id="deleteAccountBtn" class="btn btn-danger">Delete Account</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Modal for Scan Details -->
+    <div id="scanModal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close">&times;</button>
+            <h2 id="modalScanTarget"></h2>
+            <div class="modal-body" id="modalBody">
+                <!-- Scan details will be loaded here -->
+            </div>
+            <div class="modal-actions">
+                <button id="downloadReportBtn" class="btn btn-primary">Download Report</button>
+                <button class="btn btn-secondary modal-close-btn">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div id="loadingSpinner" class="loading-spinner">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <div class="footer-logo">
+                    <img src="assets/logo.svg" alt="VulneraAI" class="footer-logo-img">
+                    <h4>VulneraAI</h4>
+                </div>
+                <p>Advanced vulnerability scanning with AI-powered risk assessment</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="home.html">Home</a></li>
+                    <li><a href="index.html">Scanner</a></li>
+                    <li><a href="dashboard.html">Dashboard</a></li>
+                    <li><a href="dashboard.html">Reports</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Resources</h4>
+                <ul class="footer-links">
+                    <li><a href="auth.html">Sign In</a></li>
+                    <li><a href="auth.html">Create Account</a></li>
+                    <li><a href="index.html">Start Scanning</a></li>
+                    <li><a href="contact.html">Support</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Legal</h4>
+                <ul class="footer-links">
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="terms.html">Terms of Service</a></li>
+                    <li><a href="security.html">Security</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 VulneraAI. All rights reserved. | Advanced Vulnerability Scanner</p>
+        </div>
+    </footer>
+
+    <script src="js/dashboard.js"></script>
+</body>
+</html>

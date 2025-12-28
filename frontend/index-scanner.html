@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VulneraAI - AI-Powered Vulnerability Scanner</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <style>
+        /* Quick fix for glass effect */
+        @supports (backdrop-filter: blur(10px)) {
+            .glass-effect {
+                backdrop-filter: blur(10px) !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="assets/logo.svg" alt="VulneraAI" class="nav-logo-img">
+                <span class="logo-text">VulneraAI</span>
+            </div>
+            <div class="nav-menu">
+                <a href="home.html" class="nav-link">Home</a>
+                <a href="#scanner" class="nav-link">Scanner</a>
+                <a href="dashboard.html" class="nav-link">Reports</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="dashboard.html" class="nav-link">Dashboard</a>
+                <div class="user-info">
+                    <button id="logoutBtn" class="btn-logout">Logout</button>
+                </div>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">
+                Discover Vulnerabilities with <span class="gradient-text">AI Intelligence</span>
+            </h1>
+            <p class="hero-subtitle">
+                Scan IP addresses and domains for security threats. Get AI-powered risk assessments and detailed reports.
+            </p>
+            <button class="btn btn-primary" onclick="document.getElementById('scanner').scrollIntoView({ behavior: 'smooth' })">
+                Start Scanning
+            </button>
+        </div>
+        <div class="hero-background">
+            <div class="animated-gradient"></div>
+        </div>
+    </section>
+
+    <!-- Scanner Section -->
+    <section id="scanner" class="scanner-section">
+        <div class="container">
+            <h2 class="section-title">Vulnerability Scanner</h2>
+            
+            <div class="scanner-card glass-effect">
+                <div class="input-group">
+                    <div class="input-wrapper">
+                        <label for="target-input">Enter IP Address or Domain</label>
+                        <input 
+                            type="text" 
+                            id="target-input" 
+                            placeholder="e.g., 192.168.1.1 or example.com"
+                            class="input-field"
+                        >
+                        <span class="input-hint" id="input-hint">IPv4, IPv6, or domain names</span>
+                        <span class="input-validation" id="input-validation" style="display: none;"></span>
+                    </div>
+
+                    <div class="input-wrapper">
+                        <label for="scan-type">Scan Type</label>
+                        <select id="scan-type" class="input-field">
+                            <option value="quick">Quick Scan (5 min)</option>
+                            <option value="standard">Standard Scan (15 min)</option>
+                            <option value="comprehensive">Comprehensive Scan (30 min)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button id="scan-btn" class="btn btn-primary btn-large" onclick="startScan()">
+                    <span class="btn-text">Start Scanning</span>
+                    <span class="btn-spinner" id="btn-spinner" style="display: none;">●●●</span>
+                </button>
+            </div>
+
+            <!-- Progress Section -->
+            <div id="progress-section" class="progress-section glass-effect" style="display: none;">
+                <div class="progress-header">
+                    <h3>Scanning: <span id="progress-target"></span></h3>
+                    <span class="progress-time" id="progress-time">00:00</span>
+                </div>
+
+                <div class="progress-bar-container">
+                    <div class="progress-bar" id="progress-bar"></div>
+                </div>
+                <span class="progress-text" id="progress-text">Initializing scan...</span>
+
+                <div class="progress-details">
+                    <div class="detail-item">
+                        <span class="detail-label">Status:</span>
+                        <span class="detail-value" id="scan-status">Pending</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Vulnerabilities Found:</span>
+                        <span class="detail-value" id="vuln-count">0</span>
+                    </div>
+                </div>
+
+                <button id="cancel-btn" class="btn btn-secondary" onclick="cancelScan()">Cancel</button>
+            </div>
+
+            <!-- Results Section -->
+            <div id="results-section" class="results-section" style="display: none;">
+                <!-- Risk Score Card -->
+                <div class="risk-card glass-effect">
+                    <div class="risk-score-container">
+                        <div class="risk-gauge">
+                            <svg viewBox="0 0 200 200" class="gauge-svg">
+                                <circle cx="100" cy="100" r="90" class="gauge-bg"></circle>
+                                <circle cx="100" cy="100" r="90" class="gauge-fill" id="gauge-fill"></circle>
+                                <text x="100" y="100" class="gauge-text" id="gauge-score">0</text>
+                            </svg>
+                        </div>
+                        <div class="risk-info">
+                            <h3 class="risk-title">Risk Score</h3>
+                            <p class="risk-level" id="risk-level">Unknown</p>
+                            <p class="risk-description" id="risk-description"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Vulnerabilities List -->
+                <div class="vulnerabilities-card glass-effect">
+                    <h3 class="card-title">Found Vulnerabilities</h3>
+                    <div id="vulnerabilities-list" class="vulnerabilities-list">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+                <!-- Vulnerability Stats -->
+                <div class="stats-grid">
+                    <div class="stat-card glass-effect">
+                        <div class="stat-number" id="stat-critical">0</div>
+                        <div class="stat-label">Critical</div>
+                    </div>
+                    <div class="stat-card glass-effect">
+                        <div class="stat-number" id="stat-high">0</div>
+                        <div class="stat-label">High</div>
+                    </div>
+                    <div class="stat-card glass-effect">
+                        <div class="stat-number" id="stat-medium">0</div>
+                        <div class="stat-label">Medium</div>
+                    </div>
+                    <div class="stat-card glass-effect">
+                        <div class="stat-number" id="stat-low">0</div>
+                        <div class="stat-label">Low</div>
+                    </div>
+                </div>
+
+                <!-- Report Downloads -->
+                <div class="report-section glass-effect">
+                    <h3 class="section-title">Download Reports</h3>
+                    <div class="button-group">
+                        <button class="btn btn-primary" onclick="downloadReportPDF()">📥 Download PDF Report</button>
+                        <button class="btn btn-secondary" onclick="downloadReportJSON()">💾 Download JSON Report</button>
+                        <button class="btn btn-outline" onclick="newScan()">↻ New Scan</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reports Section -->
+            <section id="reports" class="reports-section">
+                <h3 class="section-title">Scan History</h3>
+                <div id="reports-list" class="reports-grid">
+                    <!-- Populated by JS -->
+                </div>
+
+                <div id="no-reports" class="no-reports">
+                    <p>No scans yet. Start your first scan above!</p>
+                </div>
+            </section>
+
+            <!-- About Section -->
+            <section id="about" class="about-section">
+                <h2 class="section-title">About VulneraAI</h2>
+                <p>VulneraAI uses advanced AI algorithms to identify and assess vulnerabilities in your infrastructure. Our intelligent scanning engine provides accurate risk scores and actionable recommendations.</p>
+            </section>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <div class="footer-logo">
+                    <img src="assets/logo.svg" alt="VulneraAI" class="footer-logo-img">
+                    <h4>VulneraAI</h4>
+                </div>
+                <p>Advanced vulnerability scanning with AI-powered risk assessment.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Navigate</h4>
+                <ul class="footer-links">
+                    <li><a href="home.html">Home</a></li>
+                    <li><a href="#scanner">Scanner</a></li>
+                    <li><a href="dashboard.html">Reports</a></li>
+                    <li><a href="dashboard.html">Dashboard</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Resources</h4>
+                <ul class="footer-links">
+                    <li><a href="auth.html">Sign In</a></li>
+                    <li><a href="auth.html">Create Account</a></li>
+                    <li><a href="index-scanner.html">Start Scanning</a></li>
+                    <li><a href="contact.html">Support</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Legal</h4>
+                <ul class="footer-links">
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="terms.html">Terms of Service</a></li>
+                    <li><a href="security.html">Security</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 VulneraAI. All rights reserved. | Cybersecurity Powered by AI</p>
+        </div>
+    </footer>
+
+    <!-- Modal for Vulnerability Details -->
+    <div id="vuln-modal" class="modal">
+        <div class="modal-content glass-effect">
+            <span class="modal-close" onclick="closeVulnModal()">&times;</span>
+            <div id="modal-body">
+                <!-- Populated by JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/utils.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>
