@@ -9,9 +9,11 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](#license)
 [![OS](https://img.shields.io/badge/OS-Windows%20|%20macOS%20|%20Linux-blue.svg)](#)
 
-</div>
+**Modern vulnerability scanning with real‑time port analysis, optional threat‑intel enrichment (Censys, NVD, VirusTotal), risk scoring, and downloadable reports.**
 
-Modern vulnerability scanning with real‑time port analysis, optional threat‑intel enrichment (Censys, NVD, VirusTotal), risk scoring, and downloadable reports. ✨ Frontend in HTML/CSS/JS; backend in Python Flask with SQLite.
+✨ Frontend in HTML/CSS/JS; backend in Python Flask with SQLite.
+
+</div>
 
 ## 🎯 Features
 
