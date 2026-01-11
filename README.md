@@ -169,11 +169,14 @@ If you have UI screenshots (home, dashboard, reports), place them under `fronten
 
 ### GitHub Pages (Frontend Only)
 
-The frontend is ready for GitHub Pages:
+This repo ships with a GitHub Actions workflow that deploys `frontend/` to Pages.
 
 1. Go to **Settings** → **Pages**
-2. Set source: **Branch** `main`, **Folder** `/frontend`
-3. Your site will be live at: `https://Wdrobi.github.io/vulneraai/`
+2. Under **Build and deployment → Source**, select **GitHub Actions**
+3. Save, then wait 2-3 minutes for the workflow to publish
+4. Your site will be at: `https://Wdrobi.github.io/vulneraai/`
+
+To trigger manually: **Actions** tab → **Deploy to GitHub Pages** → **Run workflow**.
 
 📖 Full deployment guide: [DEPLOYMENT.md](DEPLOYMENT.md)
 
