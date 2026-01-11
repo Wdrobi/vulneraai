@@ -2,10 +2,31 @@
 // VulneraAI - API Service
 // ====================================
 
-// Auto-detect backend URL: use localhost for local dev, deployed backend for production
-const API_BASE_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+// Auto-detect backend URL with runtime override
+// - Local dev: uses localhost:5000
+// - Hosted (GitHub Pages): prompts once for backend URL, stores in localStorage
+const savedApiBase = typeof window !== 'undefined' ? localStorage.getItem('API_BASE_URL') : null;
+const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+
+let API_BASE_URL = isLocalhost
     ? 'http://localhost:5000/api'
-    : 'https://vulneraai-backend.onrender.com/api'; // Update with your deployed backend URL
+    : (savedApiBase || 'https://vulneraai-backend.onrender.com/api'); // replace with your deployed backend
+
+if (!isLocalhost && !savedApiBase) {
+    const userInput = window.prompt('Enter backend API base URL (e.g., https://your-backend/api):', API_BASE_URL);
+    if (userInput && userInput.trim()) {
+        API_BASE_URL = userInput.trim().replace(/\/$/, '');
+        localStorage.setItem('API_BASE_URL', API_BASE_URL);
+    }
+}
+
+// Helper to change backend at runtime (from console if needed): setBackendUrl('https://.../api')
+window.setBackendUrl = function(url) {
+    if (!url) return;
+    API_BASE_URL = url.trim().replace(/\/$/, '');
+    localStorage.setItem('API_BASE_URL', API_BASE_URL);
+    alert(`API base updated to: ${API_BASE_URL}`);
+};
 
 // Global variables
 let currentScanId = null;

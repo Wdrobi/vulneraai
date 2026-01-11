@@ -176,6 +176,11 @@ This repo ships with a GitHub Actions workflow that deploys `frontend/` to Pages
 3. Save, then wait 2-3 minutes for the workflow to publish
 4. Your site will be at: `https://Wdrobi.github.io/vulneraai/`
 
+🔗 Connect to your backend from the hosted frontend:
+- On first load, the site will prompt for your backend URL (e.g., `https://your-backend/api`).
+- You can change it anytime from the browser console: `setBackendUrl('https://your-backend/api')`.
+- Local dev continues to use `http://localhost:5000/api` automatically.
+
 To trigger manually: **Actions** tab → **Deploy to GitHub Pages** → **Run workflow**.
 
 📖 Full deployment guide: [DEPLOYMENT.md](DEPLOYMENT.md)
