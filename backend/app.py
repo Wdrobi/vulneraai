@@ -17,7 +17,13 @@ from functools import wraps
 
 # Initialize Flask app
 app = Flask(__name__)
-CORS(app)
+
+# Configure CORS to allow GitHub Pages and localhost
+CORS(app, origins=[
+    'https://wdrobi.github.io',
+    'http://localhost:*',
+    'http://127.0.0.1:*'
+], supports_credentials=True)
 
 # Configuration
 from backend.config import Config

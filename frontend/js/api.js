@@ -2,7 +2,10 @@
 // VulneraAI - API Service
 // ====================================
 
-const API_BASE_URL = 'http://localhost:5000/api';
+// Auto-detect backend URL: use localhost for local dev, deployed backend for production
+const API_BASE_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+    ? 'http://localhost:5000/api'
+    : 'https://vulneraai-backend.onrender.com/api'; // Update with your deployed backend URL
 
 // Global variables
 let currentScanId = null;

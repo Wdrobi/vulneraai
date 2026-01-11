@@ -163,7 +163,26 @@ Want to add more author details (name, ID, email)? Update this section and commi
 - ERD (source): [docs/erd.mmd](docs/erd.mmd)
 
 If you have UI screenshots (home, dashboard, reports), place them under `frontend/assets/` and we’ll reference them here.
+## 🌐 Deployment
 
+### GitHub Pages (Frontend Only)
+
+The frontend is ready for GitHub Pages:
+
+1. Go to **Settings** → **Pages**
+2. Set source: **Branch** `main`, **Folder** `/frontend`
+3. Your site will be live at: `https://Wdrobi.github.io/vulneraai/`
+
+📖 Full deployment guide: [DEPLOYMENT.md](DEPLOYMENT.md)
+
+### Backend Deployment
+
+Deploy the Flask backend on:
+- **Render** (recommended): Free tier, auto-deploy from GitHub
+- **Railway**: Similar to Render
+- **Heroku** / **AWS** / **DigitalOcean**: More complex but scalable
+
+Update `frontend/js/api.js` line 8 with your deployed backend URL.
 ## ⚠️ Security & Privacy
 
 - Never commit secrets. Keep API keys in your environment.
