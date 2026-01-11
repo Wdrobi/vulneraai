@@ -55,6 +55,7 @@ GitHub Pages only hosts **static files** (HTML/CSS/JS). You need to deploy the F
 2. Create a new **Web Service** from your GitHub repo
 3. Build command: `pip install -r backend/requirements.txt`
 4. Start command: `cd backend && gunicorn app:app`
+   - Uses the provided Procfile: `web: cd backend && gunicorn app:app`
 5. Add environment variables (API keys, SECRET_KEY)
 6. Copy the live URL (e.g., `https://vulneraai.onrender.com`)
 7. Update `frontend/js/api.js` with this URL
